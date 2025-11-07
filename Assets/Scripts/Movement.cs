@@ -6,69 +6,52 @@ using UnityEngine.InputSystem;
 public class NewMonoBehaviourScript : MonoBehaviour
 {
 
-    private Rigidbody2D rb;
-    public int speed = 10;
-    public int jumpstrength = 5;
-    InputSystem_Actions playerInput;
-    Vector2 moveDir = Vector2.zero;
+    public Rigidbody2D rb;
+    public float speed = 5f;
+    public float jumpspeed = 10f;
+    int jumptotal = 0;
+    int maxjumps = 2;
+
+    public Transform groundCheck;
+    public Vector2 groundCheckSize = new Vector2(0.5f, 0.5f);
+    public LayerMask groundLayer;
+
+
+    float horizontalMovement;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-
-        //playerInput.Player.Move.started += ctx => PlayerMovement(ctx);
-        playerInput.Player.Move.started += ctx => moveDir = ctx.ReadValue<Vector2>();        
-        playerInput.Player.Move.canceled += ctx => moveDir = Vector2.zero;
     }
 
-    private void PlayerMovement(InputAction.CallbackContext ctx)
-    {
 
-    }
-
-    private void OnEnable()
-    {
-        playerInput.Enable();
-    }
-
-    private void OnDisable()
-    {
-        playerInput.Disable();
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        
+        rb.linearVelocity = new Vector2(horizontalMovement * speed, rb.linearVelocity.y);
+
+        if (rb.linearVelocity.y == 0.0f)
+        {
+            jumptotal = 0;
+        }
     }
 
-
-    private void FixedUpdate()
+    public void Move(InputAction.CallbackContext context)
     {
-        //float moveHorizontal = Input.GetAxis("Horizontal");
-        //float moveVertical = Input.GetAxis("Vertical");
-
-        //Vector2 moveVector = new Vector2(moveHorizontal, moveVertical);
-
-        //rb.AddForce(moveVector * speed);
+        horizontalMovement = context.ReadValue<Vector2>().x;
     }
 
 
-    public void OnMove(InputValue Value)
+    public void Jump(InputAction.CallbackContext context)
     {
-        float moveHorizontal = speed;
-
-        Vector2 moveVector = new Vector2(moveHorizontal, 0.0f);
-        rb.AddForce(moveVector);
+        if(context.performed && jumptotal < maxjumps)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpspeed);
+            jumptotal++;
+        }
+        else if (context.canceled)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
+        }
     }
-
-
-    public void OnJump(InputValue Value)
-    {
-        float moveVertical = jumpstrength;
-
-        Vector2 jumpVector = new Vector2(0.0f, moveVertical);
-        rb.AddForce(jumpVector, ForceMode2D.Impulse);
-    }
-
 }
