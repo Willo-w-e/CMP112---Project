@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 
 public class NewMonoBehaviourScript : MonoBehaviour
@@ -11,10 +12,6 @@ public class NewMonoBehaviourScript : MonoBehaviour
     public float jumpspeed = 10f;
     int jumptotal = 0;
     int maxjumps = 2;
-
-    public Transform groundCheck;
-    public Vector2 groundCheckSize = new Vector2(0.5f, 0.5f);
-    public LayerMask groundLayer;
 
 
     float horizontalMovement;
@@ -52,6 +49,14 @@ public class NewMonoBehaviourScript : MonoBehaviour
         else if (context.canceled)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Level Change")
+        {
+            SceneManager.LoadScene(sceneName: "");
         }
     }
 }
