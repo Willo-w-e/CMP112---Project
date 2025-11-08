@@ -52,21 +52,4 @@ public class NewMonoBehaviourScript : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag == "Intro")
-        {
-            SceneManager.LoadScene(sceneName: "Level 1");
-        }
-
-        if (other.tag == "Level 1")
-        {
-            SceneManager.LoadScene(sceneName: "Level 2");
-        }
-
-        if (other.tag == "Level 2")
-        {
-            SceneManager.LoadScene(sceneName: "Level 3");
-        }
-    }
 }
