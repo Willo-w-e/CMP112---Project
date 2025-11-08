@@ -6,7 +6,7 @@ public class LevelChange : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -20,7 +20,7 @@ public class LevelChange : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-            SceneManager.LoadScene(sceneBuildIndex, LoadSceneMode.Single);        
+        SceneManager.LoadScene(sceneBuildIndex, LoadSceneMode.Single);
     }
 }
 
