@@ -12,7 +12,7 @@ public class HoverPlatform : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -22,14 +22,23 @@ public class HoverPlatform : MonoBehaviour
 
         if (hit)
         {
-            float distance = Mathf.Abs(hit.point.y - transform.position.y);
-            float height = floatHeight - distance;
+            bool valid = hit.transform.CompareTag("Player");
+
+            if (valid)
+            {
+
+                float distance = Mathf.Abs(hit.point.y - transform.position.y);
+                float height = floatHeight - distance;
 
 
-            float force = lift * height - rb2d.linearVelocity.y;
+                float force = lift * height - rb2d.linearVelocity.y;
 
-            rb2d.AddForce(Vector2.up * force);
+                rb2d.AddForce(Vector2.up * force);
+            }
         }
 
     }
 }
+
+
+
