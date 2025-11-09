@@ -28,7 +28,7 @@ public class HoverPlatform : MonoBehaviour
 
             float force = lift * heightError - rb2d.linearVelocity.y;
 
-            rb2d.AddForce(Vector3.up * force);
+            rb2d.AddForce(Vector2.up * force);
         }
 
     }
