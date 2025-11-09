@@ -23,10 +23,10 @@ public class HoverPlatform : MonoBehaviour
         if (hit)
         {
             float distance = Mathf.Abs(hit.point.y - transform.position.y);
-            float heightError = floatHeight - distance;
+            float height = floatHeight - distance;
 
 
-            float force = lift * heightError - rb2d.linearVelocity.y;
+            float force = lift * height - rb2d.linearVelocity.y;
 
             rb2d.AddForce(Vector2.up * force);
         }
