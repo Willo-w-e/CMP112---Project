@@ -691,7 +691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 899caf5d89488994092bde1182b60702, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneBuildIndex: 4
+  sceneBuildIndex: 5
 --- !u!212 &426988566
 SpriteRenderer:
   m_ObjectHideFlags: 0
