@@ -1,4 +1,4 @@
-using JetBrains.Annotations;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class HoverPlatform : MonoBehaviour
@@ -6,6 +6,8 @@ public class HoverPlatform : MonoBehaviour
 
     public float floatHeight;
     public float lift;
+
+    public string direction = "up";
 
     public Rigidbody2D rb2d;
 
@@ -18,27 +20,95 @@ public class HoverPlatform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up);
 
-        if (hit)
+
         {
-            bool valid = hit.transform.CompareTag("Player");
 
-            if (valid)
+            if (direction == "left") { 
+
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left);
+
+                if (hit)
+                {
+                    bool valid = hit.transform.CompareTag("Player");
+
+
+                    if (valid)
+                    { 
+                        float distance = Mathf.Abs(hit.point.x - transform.position.x);
+                        float height = floatHeight - distance;
+
+
+                        float force = lift * height - rb2d.linearVelocity.x;
+
+                        rb2d.AddForce(Vector2.left * force);
+                    }
+                }
+            }
+
+            if (direction == "up")
             {
 
-                float distance = Mathf.Abs(hit.point.y - transform.position.y);
-                float height = floatHeight - distance;
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up);
+
+                if (hit)
+                {
+                    bool valid = hit.transform.CompareTag("Player");
+                    Debug.Log($"Ray hit: {hit.transform.name}");
 
 
-                float force = lift * height - rb2d.linearVelocity.y;
+                    if (valid)
+                    {
 
-                rb2d.AddForce(Vector2.up * force);
+                        float distance = Mathf.Abs(hit.point.y - transform.position.y);
+                        float height = floatHeight - distance;
+
+
+                        float force = lift * height - rb2d.linearVelocity.y;
+
+
+                        Debug.Log($"force={force}, height={height}, velY={rb2d.linearVelocity.y}");
+                        rb2d.AddForce(Vector2.up * force);
+                    }
+                }
+
             }
-        }
 
+            if (direction == "right")
+            {
+
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right);
+
+                if (hit)
+                {
+                    bool valid = hit.transform.CompareTag("Player");
+
+                    if (valid)
+                    {
+
+                        float distance = Mathf.Abs(hit.point.y - transform.position.x);
+                        float height = floatHeight - distance;
+
+
+                        float force = lift * height - rb2d.linearVelocity.x;
+
+                        rb2d.AddForce(Vector2.right * force);
+                    }
+                }
+            }
+
+
+
+
+        }
     }
 }
+
+
+    
+
+
+
 
 
 
