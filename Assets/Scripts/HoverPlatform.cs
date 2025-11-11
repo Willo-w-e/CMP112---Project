@@ -54,8 +54,6 @@ public class HoverPlatform : MonoBehaviour
                 if (hit)
                 {
                     bool valid = hit.transform.CompareTag("Player");
-                    Debug.Log($"Ray hit: {hit.transform.name}");
-
 
                     if (valid)
                     {
@@ -65,9 +63,6 @@ public class HoverPlatform : MonoBehaviour
 
 
                         float force = lift * height - rb2d.linearVelocity.y;
-
-
-                        Debug.Log($"force={force}, height={height}, velY={rb2d.linearVelocity.y}");
                         rb2d.AddForce(Vector2.up * force);
                     }
                 }
